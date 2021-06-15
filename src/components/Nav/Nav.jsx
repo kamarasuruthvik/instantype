@@ -6,7 +6,7 @@ const Nav= ()=>{
         <div className="nav-container">
             <div className="nav-left">
                 <img className="instantype-logo" src={logo} alt="logo"/>
-                <p className="instantype-logo-text">INSANTYPE</p>
+                <p className="instantype-logo-text">INSTANTYPE</p>
             </div>
         </div>
     );

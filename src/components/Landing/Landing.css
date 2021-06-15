@@ -8,6 +8,7 @@
   font-family: "Bangers", cursive;
   margin: 0;
   flex-wrap: wrap;
+  background: #1d2020;
 }
 .landing-header {
   font-size: 92px;

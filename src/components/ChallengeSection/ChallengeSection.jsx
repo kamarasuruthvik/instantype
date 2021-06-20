@@ -6,7 +6,8 @@ const ChallengeSection=({selectedParagraph,
                         wpm,
                         characters,
                         timeStarted, 
-                        timeRemaining})=>{
+                        timeRemaining,
+                        testInfo})=>{
     return (
          <div className="challenge-section-container">
             <h1 className="challenge-section-header"  data-aos="fade-down">
@@ -19,6 +20,7 @@ const ChallengeSection=({selectedParagraph,
             wpm={wpm} 
             timeStarted={timeStarted}
             timeRemaining={timeRemaining}
+            testInfo={testInfo}
             />
          </div>
     );

@@ -8,7 +8,8 @@ const TestContainer = (
     wpm,
     characters,
     timeStarted, 
-    timeRemaining}
+    timeRemaining,
+    testInfo}
     )=>{
 
     return(
@@ -21,7 +22,8 @@ const TestContainer = (
                     characters={characters} 
                     wpm={wpm} 
                     timeStarted={timeStarted}
-                    timeRemaining={timeRemaining} />
+                    timeRemaining={timeRemaining} 
+                    testInfo={testInfo}/>
                 ):
                 (
                    <TryAgain words={words} characters={characters} wpm={wpm} />

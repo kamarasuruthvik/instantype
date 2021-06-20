@@ -14,11 +14,33 @@ class App extends React.Component{
         timeRemaining:60,
         words: 0,
         characters: 0,
-        wpm:0
+        wpm:0,
+        testInfo:[],
 
-    }
+    };
+    
+    componentDidMount(){
+
+            // fetch(serviceUrl).then(response=>response.text()).then(
+            //     (data)=>{
+            //         this.setState( {selectedParagraph: data}); 
+            //     }
+            // );
+
+          const selectedParagraphArray= this.state.selectedParagraph.split("");
+          const testInfo = selectedParagraphArray.map(selectedLetter=>{
+              return {
+                testLetter: selectedLetter,
+                status: "notAttempted",
+              }
+              
+          }) 
+          this.setState({testInfo});
+        }
     render(){
         return(
+            
+
             <div className="app">
                 <Nav/>
                 <Landing/>
@@ -29,12 +51,14 @@ class App extends React.Component{
                 wpm={this.state.wpm}
                 timeRemaining={this.state.timeRemaining}
                 timeStarted={this.state.timeStarted}
+                testInfo={this.state.testInfo}
                 />
                 <Footer/>
         
             </div>
         );
     }
+        
 }
 
 export default App;

@@ -9,14 +9,15 @@ const TypingChallenge =(
     characters,
     timeStarted, 
     timeRemaining,
-    testInfo}
+    testInfo,
+    onInputChange}
     )=>{
     console.log(testInfo);
     return(
         <div className="typing-challenge">
             <div className="timer-container">
     <p className="timer">00:
-                        {timeRemaining>10 ? timeRemaining: `0${timeRemaining}`}</p>
+                        {timeRemaining>9 ? timeRemaining: `0${timeRemaining}`}</p>
                 <p className="timer-info">{
                     !timeStarted&&"Start typing to start the test"
                 }
@@ -36,7 +37,11 @@ const TypingChallenge =(
                     </div>
                 </div>
                 <div className="textarea-right">
-                <textarea  className="textarea" placeholder="textarea"></textarea>
+                <textarea  
+                onChange={(e)=>onInputChange(e.target.value)}
+                className="textarea" placeholder="textarea">
+
+                </textarea>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import Nav from '../Nav/Nav';
 import './App.css';
 
 const TotalTime=60;
+const serviceUrl="http://metaphorpsum.com/paragraphs/1/9";
 class App extends React.Component{
     state={
         selectedParagraph: "Hello world!",

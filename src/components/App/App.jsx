@@ -62,6 +62,60 @@ class App extends React.Component{
         handleUserInput= (inputValue) =>{
             if(!this.state.timeStarted)
                 this.startTimer();
+            
+            /*
+            1.Handle underflow case - all the characters should be shown as notAttempted
+            2.overflow case - early exit
+            3.Handle the backspace
+                    -Mark the (index+1) element as not attempted
+                    - But do not forget to check for the overflow case here
+                        (index+1)=>out of bounds
+            4. Update the status of the test info
+                -
+            */
+
+            const characters = inputValue.length;
+            const words = inputValue.split(" ").length;
+            const index = characters-1;
+
+            if(index<0){
+                this.setState({
+                    testInfo:[
+                        {
+                            testLetter: this.state.testInfo[0].testLetter,
+                            status: "notAttempted"
+                        },
+                        ...this.state.testInfo.slice(1),
+                    ],
+                    characters,
+                    words,
+                });
+                return;
+            }
+
+            if(index> this.state.selectedParagraph.length){
+                this.setState({characters,words });
+                return;
+            }
+    
+
+            const testInfo = this.state.testInfo;
+            if(!(index=== this.state.selectedParagraph.length-1))
+                testInfo[index+1].status = "notAttempted";
+            
+            //check for correctly typed letters
+            const isCorrect = inputValue[index]=== testInfo[index].testLetter;
+            
+
+            //update the testInfo
+            testInfo[index].status= isCorrect? "correct": "incorrect";
+
+            //update the state
+            this.setState({
+                testInfo,
+                words,
+                characters
+            })
         }
 
 

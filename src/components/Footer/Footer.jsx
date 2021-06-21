@@ -40,10 +40,10 @@ const Footer=()=>{
             <a href="https://github.com/kamarasuruthvik" target="_blank" rel="noreferrer" className="icons Github">
             <FontAwesomeIcon icon={faGithub} size="2x" />
             </a>
-            <a href="https://www.linkedin.com/in/ruthvik-kamarasu-984a23166/" rel="linkedIn" className="icons LinkedIn">
+            <a href="https://www.linkedin.com/in/ruthvik-kamarasu-984a23166/" target="_blank" rel="noreferrer"  className="icons LinkedIn">
             <FontAwesomeIcon icon={faLinkedin} size="2x" />
             </a>
-            <a href="https://twitter.com/blazingruthvik" rel="Twitter" className="icons Twitter">
+            <a href="https://twitter.com/blazingruthvik"  target="_blank" rel="noreferrer" className="icons Twitter">
             <FontAwesomeIcon icon={faTwitter} size="2x" />
             </a>
             </div>

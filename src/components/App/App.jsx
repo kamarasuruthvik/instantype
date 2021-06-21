@@ -6,7 +6,7 @@ import Nav from '../Nav/Nav';
 import './App.css';
 import {SAMPLE_PARAGRAPHS} from './../../data/SampleParagraphs';
 
-
+//dummy commit 0.00
 const TotalTime=60;
 const ServiceUrl="http://metaphorpsum.com/paragraphs/1/9";
 

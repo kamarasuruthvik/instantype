@@ -6,102 +6,103 @@ import Nav from '../Nav/Nav';
 import './App.css';
 
 const TotalTime=60;
-const serviceUrl="http://metaphorpsum.com/paragraphs/1/9";
+const ServiceUrl="http://metaphorpsum.com/paragraphs/1/9";
+const DefaultState={
+    selectedParagraph: "",
+    timeStarted: false,
+    timeRemaining:TotalTime,
+    words: 0,
+    characters: 0,
+    wpm:0,
+    testInfo:[],
+
+};
 class App extends React.Component{
-    state={
-        selectedParagraph: "Hello world!",
-        timeStarted: false,
-        timeRemaining:60,
-        words: 0,
-        characters: 0,
-        wpm:0,
-        testInfo:[],
-
-    };
+    state= DefaultState;
     
+    fetchNewParagraph(){
+        fetch(ServiceUrl).then(response=>response.text()).then(
+            (data)=>{
+                const selectedParagraphArray= data.split("");
+                const testInfo = selectedParagraphArray.map(
+                    (selectedLetter)=>{
+                    return {
+                    testLetter: selectedLetter,
+                    status: "notAttempted",
+                        }
+                    }
+                ); 
+                this.setState({...DefaultState, testInfo , selectedParagraph:data});
+            }
+        );
+    }
+
+    //When component mounts then start the logic
     componentDidMount(){
-
-            // fetch(serviceUrl).then(response=>response.text()).then(
-            //     (data)=>{
-            //         this.setState( {selectedParagraph: data}); 
-            //     }
-            // );
-
-          const selectedParagraphArray= this.state.selectedParagraph.split("");
-          const testInfo = selectedParagraphArray.map(selectedLetter=>{
-              return {
-                testLetter: selectedLetter,
-                status: "notAttempted",
-              }
-              
-          }) 
-          this.setState({testInfo});
+        this.fetchNewParagraph();
         }
 
-        
 
-        startTimer= ()=>{
-            this.setState({timeStarted: true});
-            const timer= setInterval(()=>{
-                if(this.state.timeRemaining>0){
-                    const timeSpent= TotalTime-this.state.timeRemaining;
-                    const wpm= timeSpent>0 ? (this.state.words/timeSpent)*TotalTime
-                    : 0;
+        //On trying to restart the test
+    startAgain=()=>{
+        this.fetchNewParagraph();
+    }
+
+
+        //once the user starts typing
+    startTimer= ()=>{
+        this.setState({timeStarted: true});
+        const timer= setInterval(()=>{
+        if(this.state.timeRemaining>0){
+            const timeSpent= TotalTime-this.state.timeRemaining;
+            const wpm= timeSpent>0 ? (this.state.words/timeSpent)*TotalTime
+            : 0;
                     
-                    this.setState({
-                        timeRemaining: this.state.timeRemaining-1,
-                        wpm: parseInt(wpm),
-                    })
-                }else{
-                    clearInterval(timer);
-                }
+        this.setState({
+            timeRemaining: this.state.timeRemaining-1,
+            wpm: parseInt(wpm),
+            })
+            }else{
+                clearInterval(timer);
+            }
                 
-            },1000)
-        }
+        },1000)
+    }
 
-        handleUserInput= (inputValue) =>{
-            if(!this.state.timeStarted)
-                this.startTimer();
-            
-            /*
-            1.Handle underflow case - all the characters should be shown as notAttempted
-            2.overflow case - early exit
-            3.Handle the backspace
-                    -Mark the (index+1) element as not attempted
-                    - But do not forget to check for the overflow case here
-                        (index+1)=>out of bounds
-            4. Update the status of the test info
-                -
-            */
 
-            const characters = inputValue.length;
-            const words = inputValue.split(" ").length;
-            const index = characters-1;
+        //when user enters some input
+    handleUserInput= (inputValue) =>{
+        if(!this.state.timeStarted)
+            this.startTimer();
 
-            if(index<0){
-                this.setState({
-                    testInfo:[
-                        {
-                            testLetter: this.state.testInfo[0].testLetter,
-                            status: "notAttempted"
-                        },
-                        ...this.state.testInfo.slice(1),
+        const characters = inputValue.length;
+        const words = inputValue.split(" ").length;
+        const index = characters-1;
+
+        if(index<0){
+            this.setState({
+                testInfo:[
+                    {
+                    testLetter: this.state.testInfo[0].testLetter,
+                    status: "notAttempted"
+                    },
+                    ...this.state.testInfo.slice(1),
                     ],
                     characters,
                     words,
                 });
-                return;
-            }
+            return;
+        }
 
-            if(index> this.state.selectedParagraph.length){
-                this.setState({characters,words });
+        if(index>=this.state.selectedParagraph.length){
+            this.setState({characters,words });
                 return;
             }
     
 
-            const testInfo = this.state.testInfo;
-            if(!(index=== this.state.selectedParagraph.length-1))
-                testInfo[index+1].status = "notAttempted";
+        const testInfo = this.state.testInfo;
+        if(!(index=== this.state.selectedParagraph.length-1)){
+            testInfo[index+1].status = "notAttempted";
             
             //check for correctly typed letters
             const isCorrect = inputValue[index]=== testInfo[index].testLetter;
@@ -117,6 +118,7 @@ class App extends React.Component{
                 characters
             })
         }
+    }
 
 
     render(){
@@ -135,6 +137,7 @@ class App extends React.Component{
                 timeStarted={this.state.timeStarted}
                 testInfo={this.state.testInfo}
                 onInputChange={this.handleUserInput}
+                startAgain= {this.startAgain}
                 />
                 <Footer/>
         

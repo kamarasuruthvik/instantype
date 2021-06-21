@@ -8,7 +8,8 @@ const ChallengeSection=({selectedParagraph,
                         timeStarted, 
                         timeRemaining,
                         testInfo,
-                        onInputChange})=>{
+                        onInputChange,
+                        startAgain})=>{
     return (
          <div className="challenge-section-container">
             <h1 className="challenge-section-header"  data-aos="fade-down">
@@ -23,6 +24,7 @@ const ChallengeSection=({selectedParagraph,
             timeRemaining={timeRemaining}
             testInfo={testInfo}
             onInputChange={onInputChange}
+            startAgain={startAgain}
             />
          </div>
     );

@@ -21,8 +21,8 @@ const Footer=()=>{
                 mouthType='Default'
                 skinColor='Brown'
             />
-           <h2>I am Ruthvik</h2>
-            <h3>A web Developer</h3>
+           <h2 className="name">Ruthvik</h2>
+            <h3 className="title">Web Developer</h3>
         </div>
         <div className="right-container">
         <div className="info">
@@ -31,9 +31,9 @@ const Footer=()=>{
         <div className="social-contianer">
             <p>If you loved this project and would like to contribute:
             </p>
-             <a href="https://github.com/kamarasuruthvik" className="link-container" rel="github-link"
+             <a href="https://github.com/kamarasuruthvik" className="source"
             target="_blank">
-                Checkout my github here!
+                source code!
             </a> 
             <p>You can follow me on:</p>
             <div className="icons-container">

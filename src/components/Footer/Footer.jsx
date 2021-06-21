@@ -37,7 +37,7 @@ const Footer=()=>{
             </a> 
             <p>You can follow me on:</p>
             <div className="icons-container">
-            <a href="https://github.com/kamarasuruthvik" rel="github" className="icons Github">
+            <a href="https://github.com/kamarasuruthvik" target="_blank" rel="noreferrer" className="icons Github">
             <FontAwesomeIcon icon={faGithub} size="2x" />
             </a>
             <a href="https://www.linkedin.com/in/ruthvik-kamarasu-984a23166/" rel="linkedIn" className="icons LinkedIn">

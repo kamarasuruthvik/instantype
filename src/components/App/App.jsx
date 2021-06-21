@@ -4,6 +4,8 @@ import Footer from '../Footer/Footer';
 import Landing from '../Landing/Landing';
 import Nav from '../Nav/Nav';
 import './App.css';
+import {SAMPLE_PARAGRAPHS} from './../../data/SampleParagraphs';
+
 
 const TotalTime=60;
 const ServiceUrl="http://metaphorpsum.com/paragraphs/1/9";
@@ -20,21 +22,41 @@ const DefaultState={
 class App extends React.Component{
     state= DefaultState;
     
-    fetchNewParagraph(){
-        fetch(ServiceUrl).then(response=>response.text()).then(
-            (data)=>{
-                const selectedParagraphArray= data.split("");
-                const testInfo = selectedParagraphArray.map(
-                    (selectedLetter)=>{
-                    return {
+    fetchNewParagraphCallBack= ()=>{
+        const data= SAMPLE_PARAGRAPHS[
+            Math.floor(Math.random()*SAMPLE_PARAGRAPHS.length)
+        ];
+        const selectedParagraphArray= data.split("");
+        const testInfo = selectedParagraphArray.map(
+            (selectedLetter)=>{
+                return {
                     testLetter: selectedLetter,
                     status: "notAttempted",
-                        }
-                    }
-                ); 
-                this.setState({...DefaultState, testInfo , selectedParagraph:data});
+                }
             }
-        );
+        ); 
+        this.setState({...DefaultState, testInfo , selectedParagraph:data});
+    }
+
+    fetchNewParagraph(){
+
+        //not being used as gh-pages block the http requests
+        // fetch(ServiceUrl).then(response=>response.text()).then(
+        //     (data)=>{
+        //         const selectedParagraphArray= data.split("");
+        //         const testInfo = selectedParagraphArray.map(
+        //             (selectedLetter)=>{
+        //             return {
+        //             testLetter: selectedLetter,
+        //             status: "notAttempted",
+        //                 }
+        //             }
+        //         ); 
+        //         this.setState({...DefaultState, testInfo , selectedParagraph:data});
+        //     }
+        // );
+
+        this.fetchNewParagraphCallBack();
     }
 
     //When component mounts then start the logic
